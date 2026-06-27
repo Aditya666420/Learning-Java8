@@ -93,11 +93,40 @@ public class OperationOnString {
 			String finalSt = ls.stream().max(Comparator.comparing(String::length)).orElse(null);
 			System.out.println(finalSt);
 			break;
+		case 10:
+			// Finding palindrome from a list of list of string.
+			List<List<String>> nameList = Arrays.asList(Arrays.asList("Aditya","Nayan"),Arrays.asList("Sonakshi","Maam"));
+			List<String> palString = nameList.stream()
+					.flatMap(f->f.stream())
+					.filter(OperationOnString::isPalindrome).collect(Collectors.toList());
+			System.out.println(palString);
+			break;
+		case 11:
+			//Remove consonants from the string
+			String k3 = "Aditya";
+			String removedConsonant = k3.toLowerCase().chars()
+					.mapToObj(h ->(char) h).filter(x-> vowels(x))  // only keep the vowels
+					.map(String:: valueOf).collect(Collectors.joining());
+			System.out.println(removedConsonant);
+			break;
+			
 		default:
 			System.out.print("JMD");
 			break;
 		
 		}
+		
+	}
+	public static boolean vowels(Character k) {
+		return k=='a' || k=='e' || k=='i'|| k=='o'|| k=='u';
+	}
+	public static boolean isPalindrome(String m) {
+		
+		String rev = IntStream.range(0, m.length())
+				.mapToObj(i->m.charAt(m.length()-1-i))
+				.map(String::valueOf)
+				.collect(Collectors.joining());
+		return rev.equalsIgnoreCase(m) ? true: false;
 		
 	}
 
